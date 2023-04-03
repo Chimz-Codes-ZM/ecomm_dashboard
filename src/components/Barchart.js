@@ -51,7 +51,7 @@ function Barchart() {
                 }
             },
 
-            maintainAspectRation: false,
+            maintainAspectRatio: false,
             responsive: true
         })
     }, [])

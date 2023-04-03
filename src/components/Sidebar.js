@@ -1,14 +1,27 @@
 import Link from "next/link";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import { RxSketchLogo, RxDashboard, RxPerson } from "react-icons/rx";
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { FiSettings } from 'react-icons/fi'
 
 function Sidebar({ children }) {
+
+  const [theme, setTheme] = useState("light");
+  const handleThemeSwitch = () => {
+    setTheme(theme==='dark' ? 'light' : 'dark')
+  }
+
+  useEffect(() => {
+    if(theme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [theme])
   return (
     <div className="flex">
-      <div className="fixed w-20 h-screen p-4 bg-white border-r-[1px] flex flex-col justify-between">
+      <div className="fixed w-20 h-screen p-4 bg-white dark:bg-slate-800 transition duration-500 border-r-[1px] flex flex-col justify-between">
         <div className="flex flex-col items-center">
           <Link href="/">
             <div className="bg-purple-800 hover:bg-purple-900 transition duration-300 text-white p-3 rounded-lg inline-block">
@@ -40,6 +53,7 @@ function Sidebar({ children }) {
             </div>
           </Link>
         </div>
+        <button onClick={handleThemeSwitch}>Dark Mode</button>
       </div>
       <main className="ml-20 w-full">{children}</main>
     </div>
